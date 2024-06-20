@@ -40,7 +40,7 @@ def transform_campaigns_data(campaigns_data):
                                                                 start_date=('date', 'min')).reset_index(drop=False)
     campaigns_data['revenue>spend'] = np.where(campaigns_data['revenue'] > campaigns_data['spend'], True, False)
     campaigns_data['cpc'] = round(campaigns_data['spend']/campaigns_data['clicks'], 2)
-    campaigns_data['romi'] = round((campaigns_data['revenue']-campaigns_data['spend'])/campaigns_data['spend']*100, 2)
+    campaigns_data['roas'] = round(campaigns_data['revenue']/campaigns_data['spend']*100, 2)
     campaigns_data[['article_id', 'type', 'version', 'platform', 'author', 'media']] = campaigns_data['campaign_name'].str.split(expand=True)
     campaigns_data = campaigns_data[['campaign_name', 'spend', 'revenue', 'clicks', 'start_date', 'revenue>spend', 'cpc', 'romi',
                                  'article_id', 'author', 'media']]
