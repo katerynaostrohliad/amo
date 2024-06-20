@@ -61,8 +61,8 @@ def save_campaigns_data_to_db(campaigns_data, host, database, user, password, po
         cur.mogrify("(%s, %s, %s, %s, %s, %s, %s, %s)", x).decode("utf-8") for x in
         result)
     cur.execute(
-        "INSERT INTO campaigns_data (campaign_name, spend, revenue, clicks, start_date, revenue_vs_spend, cpc, romi, article_id, author, media) VALUES"
-        + args_str + "ON CONFLICT (campaign_name) DO UPDATE SET spend = EXCLUDED.spend, revenue = EXCLUDED.revenue, clicks = EXCLUDED.clicks, start_date=EXCLUDED.start_date, revenue_vs_spend = EXCLUDED.revenue_vs_spend, cpc=EXCLUDED.cpc, romi=EXCLUDED.romi, "
+        "INSERT INTO campaigns_data (campaign_name, spend, revenue, clicks, start_date, revenue_vs_spend, cpc, roas, article_id, author, media) VALUES"
+        + args_str + "ON CONFLICT (campaign_name) DO UPDATE SET spend = EXCLUDED.spend, revenue = EXCLUDED.revenue, clicks = EXCLUDED.clicks, start_date=EXCLUDED.start_date, revenue_vs_spend = EXCLUDED.revenue_vs_spend, cpc=EXCLUDED.cpc, roas=EXCLUDED.roas, "
                      "article_id=EXCLUDED.article_id, author=EXCLUDED.author, media=EXCLUDED.media")
     conn.commit()
     cur.close()
