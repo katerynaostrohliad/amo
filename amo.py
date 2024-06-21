@@ -32,7 +32,7 @@ def get_campaign_data(host, database, user, password, port, created):
 
 
 def transform_campaigns_data(campaigns_data):
-    #campaigns_data = pd.read_csv('a.csv')
+    #campaigns_data = pd.read_csv('sql_query_data.csv')
     campaigns_data['revenue'] = campaigns_data['Banner revenue'] + campaigns_data['Video revenue']
     campaigns_data = campaigns_data.groupby(['campaign_name']).agg(spend=('Spend', 'sum'),
                                                                 revenue=('revenue', 'sum'),
