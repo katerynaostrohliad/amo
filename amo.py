@@ -43,7 +43,7 @@ def transform_campaigns_data(campaigns_data):
     campaigns_data['roas'] = round(campaigns_data['revenue']/campaigns_data['spend']*100, 2)
     campaigns_data[['article_id', 'type', 'version', 'platform', 'author', 'media']] = campaigns_data['campaign_name'].str.split(expand=True)
     campaigns_data = campaigns_data[['campaign_name', 'spend', 'revenue', 'clicks', 'start_date', 'revenue>spend', 'cpc', 'romi',
-                                 'article_id', 'author', 'media']]
+                                 'article_id', 'author', 'media', 'type', 'version']]
     return campaigns_data
 
 
@@ -63,7 +63,7 @@ def save_campaigns_data_to_db(campaigns_data, host, database, user, password, po
     cur.execute(
         "INSERT INTO campaigns_data (campaign_name, spend, revenue, clicks, start_date, revenue_vs_spend, cpc, roas, article_id, author, media) VALUES"
         + args_str + "ON CONFLICT (campaign_name) DO UPDATE SET spend = EXCLUDED.spend, revenue = EXCLUDED.revenue, clicks = EXCLUDED.clicks, start_date=EXCLUDED.start_date, revenue_vs_spend = EXCLUDED.revenue_vs_spend, cpc=EXCLUDED.cpc, roas=EXCLUDED.roas, "
-                     "article_id=EXCLUDED.article_id, author=EXCLUDED.author, media=EXCLUDED.media")
+                     "article_id=EXCLUDED.article_id, author=EXCLUDED.author, media=EXCLUDED.media, type=EXCLUDED.type, version=EXCLUDED.version")
     conn.commit()
     cur.close()
     conn.close()
